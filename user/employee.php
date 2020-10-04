@@ -15,14 +15,14 @@ if($type == 1){
 ?>
 employee type : Manager <br>
     Desgnation : <br>
-    echo $man['designation'];
+    <?php echo $man['designation'];?>
     Grade : <br>
-    if($man["grade"]==1){
+    <?php if($man["grade"]==1){
         echo "junior";
     }
     elseif($man["grade"]==2){
         echo "senior";
-    }
+    }?>
 
 
 <?php
@@ -34,18 +34,33 @@ $ks = mysqli_fetch_assoc($conn->query("select * from kitchenStaff where empId = 
 work as a : <?php if($ks["cheffFlag"]==1) echo "Cheff "; if($ks["supportFlag"]==1) echo "Supporter "; if($ks["waiter"]==1) echo "waiter "; ?>
 <br>
 experience level : <br>
-<?php 
-if($ks["experience"]==1){
-    echo "less than 5 years";
-}
-elseif($ks["experience"]==2){
-    echo "between 5 to 10 years";
-}
-elseif($ks["experience"]==3){
-    echo "more than 10 years";
-}
-?>
-<?php
+    <?php 
+    if($ks["experience"]==1){
+        echo "less than 5 years";
+    }
+    elseif($ks["experience"]==2){
+        echo "between 5 to 10 years";
+    }
+    elseif($ks["experience"]==3){
+        echo "more than 10 years";
+    }
+
+    if($ks["cheffFlag"]==1){
+        while($r = mysqli_fetch_assoc($conn->query("select * from cheff where empId = {$id}"))){
+            echo $r["sArea"];
+        
+        }
+    }
+    elseif($ks["supporterFlag"]==1){
+        echo "contract period"+$ks["contractPeriod"];
+
+    }
+    elseif($ks["waiter"]==1){
+        echo "special style";
+        while($r1 = mysqli_fetch_assoc($conn->query("select * from waiter where empId = {$id}"))){
+            echo $r1["sStyle"]+" ";
+        }
+    }
 }
 elseif($type == 3){
     $de = $conn->query("select * from cleaner where empId = {$id}");
@@ -86,6 +101,9 @@ while($row1 = mysqli_fetch_assoc($de2)){
 
 <?php
 }
-
+if($emp["faciltyID"]){
+    $r8 = mysqli_fetch_assoc($conn->query("select * facility"));
+    echo "recuited facility :"+$r8["name"]+"<br>";
+}
 ?>
 
