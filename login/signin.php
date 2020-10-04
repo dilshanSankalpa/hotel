@@ -7,8 +7,8 @@
 </head>
 <body>
     <form action="checkuser.php" method="post">
-        Enter the name <br>
-        <input type="text">
+        Enter the user name name <br>
+        <input type="text" value="should be unique name">
         Enter the pasword <br>
         <input type="password">
         <input type="submit" value="submit">
