@@ -9,11 +9,14 @@ $det = $conn->query("select type,id from user where password = {$mpw} and $name 
 $details = mysqli_fetch_assoc($det);
 $type = $details["type"];
 $id = $details["id"];
-if($type == 1){
-    header("Location : ../user/admin?id={$id}.php");
+if($type == 3){
+    header("Location : ../user/admin.php?id={$id}");
 }
 elseif ($type == 2){
-    header("Location : ../user/employee?id={$id}.php"); 
+    header("Location : ../user/employee.php?id={$id}"); 
+}
+elseif($type == 1){
+    header("Location : ../user/guest.php?id={$id}");
 }
 else{
     echo "something went wrong";
