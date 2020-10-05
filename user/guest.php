@@ -35,4 +35,16 @@ elseif($guest["type"]==3){
     $company = mysqli_fetch_assoc($conn->query("select * from company where guestId = {$id}"));
     echo "Name of the company : "+$company["name"]+" Address "+$company["address"];
 }
+
+$conn->query("create view foodC(foC,amo) as select food.cost,foodGuest.portion from food,foodGuest where  food.foodId = foodGuest.foodId and foodGuest = {$id}");
+$bill = 0;
+$roomCost = $conn->query("select sum(room.cost) from room,roomGuest where room.No = roomGuest.roomNo and roomGuest.guestId = {$id}");
+$facilityCost = $conn->query("select sum(facilityCost) from facility,guestFacility where guestFacility.facilityId = facility.facilityId and guestFacility.guestId = {$id}");
+$foodCost = 0;
+while($row = mysqli_fetch_assoc($conn->query("select * from foodC"))){
+    $foodCost += $row["foC"] * $row["amo"];
+
+}
+$bill = $roomCost+$facilityCost+$foodCost;
+echo "your bill = rs : "+$bill;
 ?>
