@@ -7,10 +7,10 @@
 </head>
 <body>
     <form action="checkuser.php" method="post">
-        Enter the user name name <br>
-        <input type="text" value="should be unique name">
+        Enter the user name : <br>
+        <input type="text" name="name"><br>
         Enter the pasword <br>
-        <input type="password">
+        <input type="password" name="pw"> <br>
         <input type="submit" value="submit">
     </form>
     

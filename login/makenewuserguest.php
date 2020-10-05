@@ -3,8 +3,29 @@ require_once "../DB/DB.php";
 
 $name = $_POST["uname"];
 $pw = $_POST["pw"];
-$mpw = md5($pw);
 $type = $_POST["type"];
+$cid = $_POST["checkInDate"];
+$cod = $_POST["checkOutDate"];
+
+$res = $conn->query("select type from user where name = '{$name}'");
+
+    if(is_null($res))
+    {
+        $conn->query("insert into user(id,name,password,type) values (NULL,'{$name}','{$pw}',1);");
+        echo "successfully entered a user"; 
+    }
+    else{
+        echo "user name is taken";
+        exit();
+    }
+    $id = $conn->query("select id from user order by id desc limit 1");
+    $cid = $_POST["checkInDate"];
+    $cod = $_POST["checkOutDate"];
+    $conn->query("INSERT INTO `guest` (`guestId`, `CID`, `COD`, `type`, `id`) VALUES (NULL, '{$cid}', '{$cod}', {$type}, {$id})");
+    $g = $conn->query("select id,type from guest order by guestId desc limit 1");
+    $guest = mysqli_fetch_assoc($g);
+    $gId = $guest["id"];
+    $gType = $guest["type"];
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +36,7 @@ $type = $_POST["type"];
     <title>Document</title>
 </head>
 <body>
-<form action="makeuserguestsub.php?userid=<?php echo $gId; ?>" method="POST">
+<form action="makeuserguestsub.php?userid=<?php echo $gId; ?>&type=<?php echo $gType; ?>" method="POST">
     <?php 
         if($type == 1){
             ?>
@@ -46,22 +67,7 @@ $type = $_POST["type"];
         <input type="text" name="address"> <br>
     <?php 
         }
-        $res = $conn->query("select type from user where name = {$name}");
-
-    if(is_null($res))
-    {
-        $conn->query("insert into user(id,name,password,type) values (NULL,{$name},{$mpw},1);");
-        echo "successfully entered a user"; 
-    }
-    else{
-        echo "user name is taken";
-        die();
-    }
-    $id = $conn->query("select id from user order by id desc limit 1");
-    $cid = $_POST["checkInDate"];
-    $cod = $_POST["checkOutDate"];
-    $conn->query("INSERT INTO `guest` (`guestId`, `CID`, `COD`, `type`, `id`) VALUES (NULL, '{$cid}', '{$cod}', {$type}, {$id})");
-    $gId = $conn->query("select id from guest order by guestId desc limit 1");        
+                
     ?>
     <br>
     <input type="submit" value="submit">

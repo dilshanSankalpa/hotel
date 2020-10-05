@@ -47,4 +47,5 @@ while($row = mysqli_fetch_assoc($conn->query("select * from foodC"))){
 }
 $bill = $roomCost+$facilityCost+$foodCost;
 echo "your bill = rs : "+$bill;
+$conn->close();
 ?>
