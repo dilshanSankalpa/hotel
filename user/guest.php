@@ -1,5 +1,5 @@
 <?php
-require_once "../DB/DB.php";
+require_once ('../DB/DB.php');
 $id = $_GET["id"];
 echo "Telephone numbers : "+"<br>";
 while($row = mysqli_fetch_assoc($conn->query("select * from guTell where guestId = {$id}"))){

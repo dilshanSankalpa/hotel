@@ -1,5 +1,5 @@
 <?php
-require_once "../DB/DB.php";
+require_once ('../DB/DB.php');
 
 $name = $_POST["uname"];
 $pw = $_POST["pw"];
@@ -9,14 +9,15 @@ $cod = $_POST["checkOutDate"];
 
 $res = $conn->query("select type from user where name = '{$name}'");
 
-    if(is_null($res))
+    if(isset($res))
     {
-        $conn->query("insert into user(id,name,password,type) values (NULL,'{$name}','{$pw}',1);");
-        echo "successfully entered a user"; 
-    }
-    else{
         echo "user name is taken";
         exit();
+    }
+    else{
+        $conn->query("insert into user(id,name,password,type) values (NULL,'{$name}','{$pw}',1);");
+        echo "successfully entered a user"; 
+        
     }
     $id = $conn->query("select id from user order by id desc limit 1");
     $cid = $_POST["checkInDate"];
@@ -59,7 +60,7 @@ $res = $conn->query("select type from user where name = '{$name}'");
 
     <?php
         }
-        elseif($type == 2){
+        elseif($type == 3){
             ?>
         Enter the company name : <br>
         <input type="text" name="name"> <br>

@@ -1,5 +1,5 @@
 <?php
-require_once "../DB/DB.php";
+require_once ('../DB/DB.php');
 $id = $_GET["id"];
 $detEmp = $conn->query("select * from employee where id = {$id}");
 $emp = mysqli_fetch_assoc($detEmp);
