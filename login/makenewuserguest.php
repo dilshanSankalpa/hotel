@@ -30,13 +30,6 @@ $res = $conn->query("select type from user where name = '{$name}'");
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 <form action="makeuserguestsub.php?userid=<?php echo $gId; ?>&type=<?php echo $gType; ?>" method="POST">
     <?php 
         if($type == 1){
@@ -68,10 +61,9 @@ $res = $conn->query("select type from user where name = '{$name}'");
         <input type="text" name="address"> <br>
     <?php 
         }
+        $conn->close();
                 
     ?>
     <br>
     <input type="submit" value="submit">
 </form>
-</body>
-</html>
