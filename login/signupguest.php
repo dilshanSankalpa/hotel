@@ -8,9 +8,9 @@
 <body>
     <form action="makenewuserguest.php" method="post">
         Enter a unique user name : <br>
-        <input type="text"> <br>
+        <input type="text" name="name"> <br>
         Enter a password : <br>
-        <input type="password"> <br>
+        <input type="password" name="pw"> <br>
         Select guest type : <br>
         <select name="type" id="type">
             <option value="1">Family</option>
