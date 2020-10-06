@@ -1,7 +1,7 @@
 <?php
 require_once ('../DB/DB.php');
 
-$name = $_POST["uname"];
+$name = $_POST["name"];
 $pw = $_POST["pw"];
 $type = $_POST["type"];
 $cid = $_POST["checkInDate"];
@@ -9,24 +9,16 @@ $cod = $_POST["checkOutDate"];
 
 $res = $conn->query("select type from user where name = '{$name}'");
 
-    if(isset($res))
-    {
-        echo "user name is taken";
-        exit();
-    }
-    else{
-        $conn->query("insert into user(id,name,password,type) values (NULL,'{$name}','{$pw}',1);");
-        echo "successfully entered a user"; 
-        
-    }
-    $id = $conn->query("select id from user order by id desc limit 1");
-    $cid = $_POST["checkInDate"];
-    $cod = $_POST["checkOutDate"];
-    $conn->query("INSERT INTO `guest` (`guestId`, `CID`, `COD`, `type`, `id`) VALUES (NULL, '{$cid}', '{$cod}', {$type}, {$id})");
-    $g = $conn->query("select id,type from guest order by guestId desc limit 1");
-    $guest = mysqli_fetch_assoc($g);
-    $gId = $guest["id"];
-    $gType = $guest["type"];
+$conn->query("insert into user(id,name,password,type) values (NULL,'{$name}','{$pw}',1);");
+$ids = mysqli_fetch_assoc($conn->query("select id from user order by id desc limit 1"));
+$id = ids["id"];
+$cid = $_POST["checkInDate"];
+$cod = $_POST["checkOutDate"];
+$conn->query("INSERT INTO `guest` (`guestId`, `CID`, `COD`, `type`, `id`) VALUES (NULL, '{$cid}', '{$cod}', {$type}, {$id})");
+$g = $conn->query("select id,type from guest order by guestId desc limit 1");
+$guest = mysqli_fetch_assoc($g);
+$gId = $guest["id"];
+$gType = $guest["type"];
 
 ?>
 <!DOCTYPE html>
