@@ -9,9 +9,9 @@ $cod = $_POST["checkOutDate"];
 
 $res = $conn->query("select type from user where name = '{$name}'");
 
-$conn->query("insert into user(id,name,password,type) values (NULL,'{$name}','{$pw}',1);");
+$conn->query("insert into user(id,name,password,type) values (NULL,'{$name}','{$pw}','1');");
 $ids = mysqli_fetch_assoc($conn->query("select id from user order by id desc limit 1"));
-$id = ids["id"];
+$id = $ids["id"];
 $cid = $_POST["checkInDate"];
 $cod = $_POST["checkOutDate"];
 $conn->query("INSERT INTO `guest` (`guestId`, `CID`, `COD`, `type`, `id`) VALUES (NULL, '{$cid}', '{$cod}', {$type}, {$id})");
@@ -31,7 +31,11 @@ $gType = $guest["type"];
             Enter the NIC of family head <br>
             <input type="text" name="NIC" id="NIC"><br>
             Enter the family head gender : <br>
-            <input type="text" name="gender"> <br>
+            <select name = "gender">
+                <option value="1">male</option>
+                <option value="2">female</option>
+            </select>
+            <br>
     <?php
         }
         elseif($type == 2){
@@ -41,7 +45,11 @@ $gType = $guest["type"];
         Enter the name : <br>
         <input type="text" name="name"><br>
         Enter the gender : <br>
-        <input type="text" name="gender"> <br> 
+        <select name = "gender">
+            <option value="1">male</option>
+            <option value="2">female</option>
+        </select> 
+        <br>
 
     <?php
         }
