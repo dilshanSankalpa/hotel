@@ -8,9 +8,9 @@
 <body>
     <form action="makenewuserguest.php" method="post">
         Enter a unique user name : <br>
-        <input type="text" name="uname"> <br>
+        <input type="text"> <br>
         Enter a password : <br>
-        <input type="password" name="pw"> <br>
+        <input type="password"> <br>
         Select guest type : <br>
         <select name="type" id="type">
             <option value="1">Family</option>
@@ -22,6 +22,5 @@
         Enter the check out date <br>
         <input type="date" name="checkOutDate" id="checkOut"> <br>
         <input type="submit" value="submit">
-        
     </form>
 </html>

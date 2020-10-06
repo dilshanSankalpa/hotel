@@ -1,10 +1,10 @@
 <?php
 
 require_once ('../DB/DB.php');
-print_r($_POST);
+//print_r($_POST);
 $pw = $_POST["pw"];
 $name = $_POST["name"];
-$de = $conn->query("SELECT * FROM `user` WHERE name = '{$name}' and password = '{$pw}';");
+$de = $conn->query("SELECT * FROM `user` WHERE name = '{$name}' and password = '{$pw}'");
 $details = mysqli_fetch_assoc($de);
 $type = $details["type"];
 $id = $details["id"];

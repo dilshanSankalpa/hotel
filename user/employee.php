@@ -52,13 +52,13 @@ experience level : <br>
         }
     }
     elseif($ks["supporterFlag"]==1){
-        echo "contract period"+$ks["contractPeriod"];
+        echo "contract period : ".$ks["contractPeriod"];
 
     }
     elseif($ks["waiter"]==1){
         echo "special style";
         while($r1 = mysqli_fetch_assoc($conn->query("select * from waiter where empId = {$id}"))){
-            echo $r1["sStyle"]+" ";
+            echo $r1["sStyle"]." ";
         }
     }
 }
@@ -75,7 +75,7 @@ cleaned rooms :
 $de1 = $conn->query("select * from roomClean where empId = {$id}");
 while($row = mysqli_fetch_assoc($de1)){
 
-    echo $row["date"]+" "+ $row["time"]+" "+ $row["roomNo"];
+    echo $row["date"]." ".$row["time"]." ".$row["roomNo"];
     
 ?>
 
