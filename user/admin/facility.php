@@ -6,7 +6,8 @@ require_once('../../DB/DB.php');
 ?>
 <a href="insertfacility.php"><button>Insert a new row</button></a>
 <?php 
-while($row = mysqli_fetch_assoc($conn->query("SELECT * FROM `facility`"))){
+$query = $conn->query("SELECT * FROM `facility`");
+while($row = mysqli_fetch_assoc($query)){
     ?>
 <h3>Facility table</h3>
 <form action="updatefacility.php?id<?php echo $row['facilityId'] ?>" method="post">
@@ -24,8 +25,9 @@ while($row = mysqli_fetch_assoc($conn->query("SELECT * FROM `facility`"))){
     <br>
     cost <br>
     <input type="text" name="cost" value="<?php echo $row['cost']; ?>"><br>
-    <input type="submit" value="submit">
+    <input type="submit" value="update">
 </form>
+    <a href="deletefacility.php?id=<?php echo $row['facilityId']; ?>"><button>Delete</button></a>
 <?php
 }
 ?>
