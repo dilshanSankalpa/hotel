@@ -2,11 +2,12 @@
 require_once ('../DB/DB.php');
 $id = $_GET["id"];
 echo "Telephone numbers : "."<br>";
-while($row = mysqli_fetch_assoc($conn->query("select * from guTell where guestId = {$id}"))){
+$query = $conn->query("select * from guTell where guestId = {$id}");
+while($row = mysqli_fetch_assoc($query)){
     echo $row["tel"]."<br>";
 }
 $guest = mysqli_fetch_assoc($conn->query("select * from guest where guestId = {$id}"));
-echo "Check in date : ".$guest["CID"]." Check out date : ".$guest["COD"];
+echo "Check in date : ".$guest["CID"]." Check out date : ".$guest["COD"]."<br>";
 
 if($guest["type"]==1){
     echo "Guest type = family<br>";
@@ -20,9 +21,10 @@ if($guest["type"]==1){
     }
 }
 elseif($guest["type"]==2){
-    echo "guest type : individual";
-    $individual = mysqli_fetch_assoc($conn->query("select * from individual where gusetId = {$id}"));
-    echo "NIC : ".$individual["NIC"]." name ".$individual["name"]." gender ";
+    echo "guest type : individual<br>";
+$query = $conn->query("SELECT * FROM `individual` WHERE guestId = '{$id}'");
+    $individual = mysqli_fetch_assoc($query);
+    echo "NIC : ".$individual["NIC"]." name ".$individual["name"]." gender : ";
     if($individual["gender"]==1){
         echo "male<br>";
     }
@@ -38,12 +40,25 @@ elseif($guest["type"]==3){
 
 $conn->query("create view foodC(foC,amo) as select food.cost,foodGuest.portion from food,foodGuest where  food.foodId = foodGuest.foodId and foodGuest = {$id}");
 $bill = 0;
-$roomCost = $conn->query("select sum(room.cost) from room,roomGuest where room.No = roomGuest.roomNo and roomGuest.guestId = {$id}");
-$facilityCost = $conn->query("select sum(facilityCost) from facility,guestFacility where guestFacility.facilityId = facility.facilityId and guestFacility.guestId = {$id}");
 $foodCost = 0;
-while($row = mysqli_fetch_assoc($conn->query("select * from foodC"))){
-    $foodCost += $row["foC"] * $row["amo"];
-
+$roomCost = 0;
+$facilityCost = 0;
+$queryRoomCost = $conn->query("select sum(room.cost) AS c from room,roomGuest where room.No = roomGuest.roomNo and roomGuest.guestId = {$id}");
+if(isset($queryRoomCost)){
+    $roomCostF = mysqli_fetch_assoc($queryRoomCost);
+    $roomCost = $roomCostF["c"];
+}
+$queryFacilityCost = $conn->query("select sum(facilityCost) AS c from facility,guestFacility where guestFacility.facilityId = facility.facilityId and guestFacility.guestId = {$id}");
+if(isset($queryFacilityCost)){
+    $facilityCostF = mysqli_fetch_assoc($queryFacilityCost);
+    $facilityCost = $facilityCostF["c"];
+}
+$queryFood = $conn->query("select * from foodC");
+if(isset($queryFood)){
+    while($row = mysqli_fetch_assoc($query)){
+        $foodCost += $row["foC"] * $row["amo"];
+    
+    }
 }
 $bill = $roomCost+$facilityCost+$foodCost;
 echo "your bill = rs : ".$bill;

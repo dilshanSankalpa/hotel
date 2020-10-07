@@ -9,13 +9,13 @@ $type = $details["type"];
 $id = $details["id"];
 
 if($type == 3){
-    header("Location : ../user/admin.php?id=".$id);
+    header("Location:../user/admin.php?id=".$id);
 }
 elseif ($type == 2){
-    header("Location : ../user/employee.php?id=".$id); 
+    header("Location:../user/employee.php?id=".$id); 
 }
 elseif($type == 1){
-    header("Location : ../user/guest.php?id=".$id);
+    header("Location:../user/guest.php?id=".$id);
 }
 else{
     echo "something went wrong";
