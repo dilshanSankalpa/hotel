@@ -1,10 +1,11 @@
 <?php
 require_once ('../DB/DB.php');
-$id = $_GET["id"];
+$gid = $_GET["id"];
 echo "Telephone numbers : "."<br>";
 
-$guest = mysqli_fetch_assoc($conn->query("select * from guest where guestId = {$id}"));
+$guest = mysqli_fetch_assoc($conn->query("select * from guest where guestId = {$gid}"));
 echo "Check in date : ".$guest["CID"]." Check out date : ".$guest["COD"]."<br>";
+$id = $guest["guestId"];
 $query = $conn->query("select * from guTell where guestId = {$guest['guestId']};");
 while($row = mysqli_fetch_assoc($query)){
     echo $row["tel"]."<br>";
