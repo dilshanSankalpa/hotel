@@ -2,13 +2,13 @@
 require_once ('../DB/DB.php');
 $id = $_GET["id"];
 echo "Telephone numbers : "."<br>";
-$query = $conn->query("select * from guTell where guestId = {$id}");
+
+$guest = mysqli_fetch_assoc($conn->query("select * from guest where guestId = {$id}"));
+echo "Check in date : ".$guest["CID"]." Check out date : ".$guest["COD"]."<br>";
+$query = $conn->query("select * from guTell where guestId = {$guest['guestId']};");
 while($row = mysqli_fetch_assoc($query)){
     echo $row["tel"]."<br>";
 }
-$guest = mysqli_fetch_assoc($conn->query("select * from guest where guestId = {$id}"));
-echo "Check in date : ".$guest["CID"]." Check out date : ".$guest["COD"]."<br>";
-
 if($guest["type"]==1){
     echo "Guest type = family<br>";
     $family = mysqli_fetch_assoc($conn->query("select * from family guestId = {$id} "));
