@@ -38,7 +38,6 @@ elseif($guest["type"]==3){
     echo "Name of the company : ".$company["name"]." Address ".$company["address"];
 }
 
-$conn->query("create view foodC(foC,amo) as select food.cost,foodGuest.portion from food,foodGuest where food.foodId = foodGuest.foodId and foodGuest.guestId = {$id}");
 $bill = 0;
 $foodCost = 0;
 $roomCost = 0;
@@ -53,6 +52,7 @@ if(isset($queryFacilityCost)){
     $facilityCostF = mysqli_fetch_assoc($queryFacilityCost);
     $facilityCost = $facilityCostF["c"];
 }
+$conn->query("create view foodC(foC,amo) as select food.cost,foodGuest.portion from food,foodGuest where food.foodId = foodGuest.foodId and foodGuest.guestId = {$id}");
 $queryFood = $conn->query("select * from foodC");
 if(isset($queryFood)){
     while($row = mysqli_fetch_assoc($query)){
