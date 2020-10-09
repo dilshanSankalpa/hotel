@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 06, 2020 at 08:32 PM
+-- Generation Time: Oct 09, 2020 at 10:12 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -136,11 +136,29 @@ CREATE TABLE `family` (
 
 CREATE TABLE `food` (
   `foodId` int(3) NOT NULL,
-  `rate` int(20) NOT NULL,
+  `rate` int(2) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `type` int(3) NOT NULL,
+  `type` int(1) NOT NULL,
   `cost` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`foodId`, `rate`, `name`, `type`, `cost`) VALUES
+(1, 10, 'rice', 1, 200);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `foodC`
+-- (See below for the actual view)
+--
+CREATE TABLE `foodC` (
+`foC` int(4)
+,`amo` int(1)
+);
 
 -- --------------------------------------------------------
 
@@ -153,6 +171,13 @@ CREATE TABLE `foodGuest` (
   `foodId` int(3) NOT NULL,
   `portion` int(1) NOT NULL COMMENT '1 = single 2 = double 3 = multiple 4 = group'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `foodGuest`
+--
+
+INSERT INTO `foodGuest` (`guestId`, `foodId`, `portion`) VALUES
+(2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -174,7 +199,7 @@ CREATE TABLE `guest` (
 
 INSERT INTO `guest` (`guestId`, `CID`, `COD`, `type`, `id`) VALUES
 (1, '2020-10-12', '2020-09-30', 2, 3),
-(2, '2020-10-13', '2020-10-13', 2, 5),
+(2, '2020-10-13', '2020-10-13', 2, 2),
 (3, '2020-10-23', '2020-10-22', 2, 6),
 (4, '2020-11-05', '2020-11-07', 2, 7),
 (5, '2020-11-05', '2020-11-07', 2, 7),
@@ -205,6 +230,14 @@ CREATE TABLE `guTell` (
   `tel` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `guTell`
+--
+
+INSERT INTO `guTell` (`guestId`, `tel`) VALUES
+(2, '0323262'),
+(2, '1645854');
+
 -- --------------------------------------------------------
 
 --
@@ -223,6 +256,7 @@ CREATE TABLE `individual` (
 --
 
 INSERT INTO `individual` (`guestId`, `name`, `gender`, `NIC`) VALUES
+(2, 'bvcik', 1, '1230'),
 (7, 'Ddr3 RX20', 2, '1356887');
 
 -- --------------------------------------------------------
@@ -372,6 +406,15 @@ CREATE TABLE `waiter` (
   `empId` int(3) NOT NULL,
   `sStyle` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `foodC`
+--
+DROP TABLE IF EXISTS `foodC`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `foodC`  AS  select `food`.`cost` AS `foC`,`foodGuest`.`portion` AS `amo` from (`food` join `foodGuest`) where `food`.`foodId` = `foodGuest`.`foodId` and `foodGuest`.`guestId` = 2 ;
 
 --
 -- Indexes for dumped tables
@@ -531,6 +574,12 @@ ALTER TABLE `employee`
 --
 ALTER TABLE `facility`
   MODIFY `facilityId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `food`
+--
+ALTER TABLE `food`
+  MODIFY `foodId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `guest`
