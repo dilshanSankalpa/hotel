@@ -94,19 +94,19 @@ Employee type : receptionist <br>
 
 handled guests(Ids) : <br>
 
-<? php
+<?php
 $de = $conn->query("SELECT * FROM `recGuest` WHERE empId = '{$id}';");
 while($row1 = mysqli_fetch_assoc($de)){
     echo $row1["guestId"]."<br>";
-    ?>
-    <br>
-    facilities :  
-    <?php
+    
 }
-if($emp["faciltyID"]){
+    
+if($emp["faciltyID"] != NULL){
+    echo "facilities : <br>";
     $q8 = $conn->query("select * facility where empId = '{$id}';");
     while($r8 = mysqli_fetch_assoc($q8))
-    echo "recuited facility :"+$r8["name"]+"<br>";
+    echo "recruited facility :"+$r8["name"]+"<br>";
+}
 }
 
 ?>
