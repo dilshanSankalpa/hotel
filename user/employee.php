@@ -5,39 +5,37 @@ $detEmp = $conn->query("select * from employee where id = {$gId}");
 $emp = mysqli_fetch_assoc($detEmp);
 $type = $emp["type"];
 $id = $emp["id"];
-?>
 
-<?php
 if($type == 1){
     $detSub = $conn->query("select * from manager where empID = {$id}");
     $man = mysqli_fetch_assoc($detSub);
     $grade = $man["grade"];
-?>
-employee type : Manager <br>
-    Desgnation : <br>
-    <?php echo $man['designation'];?>
-    Grade : <br>
-    <?php if($man["grade"]==1){
-        echo "junior";
+    print_r($man);
+
+    echo "employee type : Manager <br>Desgnation : <br>";
+    echo $man["designation"];
+    echo "Grade : ";
+    if($man["grade"]==1){
+        echo "junior <br>";
     }
     elseif($man["grade"]==2){
-        echo "senior";
-    }?>
+        echo "senior <br>";
+    }
 
 
-<?php
+
 }
 elseif($type == 2){
-?>
-Employee type : Kitchen staff <br>
 
-work as a : <?php
+echo "Employee type : Kitchen staff <br>
+
+work as a : ";
 $ksQuery = "select * from kitchenStaff where empId = {$id}"; 
 $ks = mysqli_fetch_assoc($conn->query($ksQuery));
-if($ks["cheffFlag"]==1) echo "Cheff "; if($ks["supportFlag"]==1) echo "Supporter "; if($ks["waiter"]==1) echo "waiter "; ?>
-<br>
-experience level : <br>
-    <?php 
+if($ks["cheffFlag"]==1) echo "Cheff "; if($ks["supportFlag"]==1) echo "Supporter "; if($ks["waiter"]==1) echo "waiter "; 
+echo "<br>
+experience level : <br>";
+   
     if($ks["experience"]==1){
         echo "less than 5 years";
     }
@@ -68,33 +66,32 @@ experience level : <br>
 elseif($type == 3){
     $de = $conn->query("select * from cleaner where empId = {$id}");
     $clean = mysqli_fetch_assoc($de);
-    ?>
-Employee type : cleaner <br>
 
-working location : <?php echo $clean["location"]; ?>
-<br>
-cleaned rooms :
-<?php
+    echo "Employee type : cleaner <br>";
+    echo "working location : ".$clean["location"]."<br>
+cleaned rooms :";
+
+echo "<br>cleaned rooms :";
+
+
 $de1 = $conn->query("select * from roomClean where empId = '{$id}';");
 while($row = mysqli_fetch_assoc($de1)){
 
     echo "Date : ".$row["date"]." Time : ".$row["time"]." Room No : ".$row["roomNo"];
 }
     
-?>
 
 
 
 
-<?php
+
+
 }
 elseif($type == 4){
-?>
-Employee type : receptionist <br>
 
-handled guests(Ids) : <br>
+echo "Employee type : receptionist <br>handled guests(Ids) : <br>";
 
-<?php
+
 $de = $conn->query("SELECT * FROM `recGuest` WHERE empId = '{$id}';");
 while($row1 = mysqli_fetch_assoc($de)){
     echo $row1["guestId"]."<br>";
@@ -108,6 +105,7 @@ if($emp["faciltyID"] != NULL){
     echo "recruited facility :"+$r8["name"]+"<br>";
 }
 }
+$conn->close();
 
 ?>
 
