@@ -7,13 +7,13 @@ $type = $emp["type"];
 $id = $emp["id"];
 
 if($type == 1){
-    $detSub = $conn->query("select * from manager where empID = {$id}");
+    $detSub = $conn->query("select * from manager where empId = {$id};");
     $man = mysqli_fetch_assoc($detSub);
     $grade = $man["grade"];
-    print_r($man);
+    
 
-    echo "employee type : Manager <br>Desgnation : <br>";
-    echo $man["designation"];
+    echo "employee type : Manager <br>Desgnation : ";
+    echo $man["designation"]."<br>";
     echo "Grade : ";
     if($man["grade"]==1){
         echo "junior <br>";
@@ -32,7 +32,9 @@ echo "Employee type : Kitchen staff <br>
 work as a : ";
 $ksQuery = "select * from kitchenStaff where empId = {$id}"; 
 $ks = mysqli_fetch_assoc($conn->query($ksQuery));
-if($ks["cheffFlag"]==1) echo "Cheff "; if($ks["supportFlag"]==1) echo "Supporter "; if($ks["waiter"]==1) echo "waiter "; 
+if($ks["cheffFlag"]==1) echo "Cheff ";
+if($ks["supportFlag"]==1) echo "Supporter ";
+if($ks["waiter"]==1) echo "waiter"; 
 echo "<br>
 experience level : <br>";
    
@@ -68,10 +70,7 @@ elseif($type == 3){
     $clean = mysqli_fetch_assoc($de);
 
     echo "Employee type : cleaner <br>";
-    echo "working location : ".$clean["location"]."<br>
-cleaned rooms :";
-
-echo "<br>cleaned rooms :";
+    echo "working location : ".$clean["location"]."<br>cleaned rooms :";
 
 
 $de1 = $conn->query("select * from roomClean where empId = '{$id}';");
@@ -90,7 +89,6 @@ while($row = mysqli_fetch_assoc($de1)){
 elseif($type == 4){
 
 echo "Employee type : receptionist <br>handled guests(Ids) : <br>";
-
 
 $de = $conn->query("SELECT * FROM `recGuest` WHERE empId = '{$id}';");
 while($row1 = mysqli_fetch_assoc($de)){
