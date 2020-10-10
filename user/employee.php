@@ -1,7 +1,7 @@
 <?php
 require_once ('../DB/DB.php');
-$id = $_GET["id"];
-$detEmp = $conn->query("select * from employee where id = {$id}");
+$gId = $_GET["id"];
+$detEmp = $conn->query("select * from employee where id = {$gId}");
 $emp = mysqli_fetch_assoc($detEmp);
 $type = $emp["type"];
 $id = $emp["id"];
@@ -30,8 +30,11 @@ employee type : Manager <br>
 elseif($type == 2){
 ?>
 Employee type : Kitchen staff <br>
-$ks = mysqli_fetch_assoc($conn->query("select * from kitchenStaff where empId = {$id}"));
-work as a : <?php if($ks["cheffFlag"]==1) echo "Cheff "; if($ks["supportFlag"]==1) echo "Supporter "; if($ks["waiter"]==1) echo "waiter "; ?>
+
+work as a : <?php
+$ksQuery = "select * from kitchenStaff where empId = {$id}"; 
+$ks = mysqli_fetch_assoc($conn->query($ksQuery));
+if($ks["cheffFlag"]==1) echo "Cheff "; if($ks["supportFlag"]==1) echo "Supporter "; if($ks["waiter"]==1) echo "waiter "; ?>
 <br>
 experience level : <br>
     <?php 
@@ -72,38 +75,39 @@ working location : <?php echo $clean["location"]; ?>
 <br>
 cleaned rooms :
 <?php
-$de1 = $conn->query("select * from roomClean where empId = {$id}");
+$de1 = $conn->query("select * from roomClean where empId = '{$id}';");
 while($row = mysqli_fetch_assoc($de1)){
 
-    echo $row["date"]." ".$row["time"]." ".$row["roomNo"];
+    echo "Date : ".$row["date"]." Time : ".$row["time"]." Room No : ".$row["roomNo"];
+}
     
 ?>
 
 
-<?php
-}
-?>
+
 
 <?php
 }
 elseif($type == 4){
-    $de2 = $conn->query("select * from where recGuest where empId = {$id}");
 ?>
 Employee type : receptionist <br>
 
-handled guests : <br>
+handled guests(Ids) : <br>
 
 <? php
-while($row1 = mysqli_fetch_assoc($de2)){
-    echo $row1["guestId"];
-?>
-<br>
-
-<?php
+$de = $conn->query("SELECT * FROM `recGuest` WHERE empId = '{$id}';");
+while($row1 = mysqli_fetch_assoc($de)){
+    echo $row1["guestId"]."<br>";
+    ?>
+    <br>
+    facilities :  
+    <?php
 }
 if($emp["faciltyID"]){
-    $r8 = mysqli_fetch_assoc($conn->query("select * facility"));
+    $q8 = $conn->query("select * facility where empId = '{$id}';");
+    while($r8 = mysqli_fetch_assoc($q8))
     echo "recuited facility :"+$r8["name"]+"<br>";
 }
+
 ?>
 

@@ -4,13 +4,14 @@ use function PHPSTORM_META\type;
 
 require_once('../../DB/DB.php');
 ?>
+
+<h3>Facility table</h3>
 <a href="insertfacility.php"><button>Insert a new row</button></a>
 <?php 
 $query = $conn->query("SELECT * FROM `facility`");
 while($row = mysqli_fetch_assoc($query)){
     ?>
-<h3>Facility table</h3>
-<form action="updatefacility.php?id<?php echo $row['facilityId'] ?>" method="post">
+<form action="updatefacility.php?id=<?php echo $row['facilityId'] ?>" method="post">
     location <br>
     <input type="text" name="location" value="<?php echo $row['location']?>"> <br>
     Rate <br>

@@ -56,7 +56,7 @@ if(isset($queryFacilityCost)){
 $conn->query("create view foodC(foC,amo) as select food.cost,foodGuest.portion from food,foodGuest where food.foodId = foodGuest.foodId and foodGuest.guestId = {$id}");
 $queryFood = $conn->query("select * from foodC");
 if(isset($queryFood)){
-    while($row = mysqli_fetch_assoc($query)){
+    while($row = mysqli_fetch_assoc($queryFood)){
         $foodCost += $row["foC"] * $row["amo"];
     
     }
