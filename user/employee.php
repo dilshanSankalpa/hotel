@@ -77,6 +77,7 @@ $de1 = $conn->query("select * from roomClean where empId = '{$id}';");
 while($row = mysqli_fetch_assoc($de1)){
 
     echo "Date : ".$row["date"]." Time : ".$row["time"]." Room No : ".$row["roomNo"];
+
 }
     
 
