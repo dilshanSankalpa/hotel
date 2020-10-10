@@ -59,10 +59,11 @@ experience level : <br>";
 
     }
     elseif($ks["waiter"]==1){
-        echo "special style";
+        echo "special style : ";
         while($r1 = mysqli_fetch_assoc($conn->query("select * from waiter where empId = {$id}"))){
             echo $r1["sStyle"]." ";
         }
+        echo "<br>";
     }
 }
 elseif($type == 3){
