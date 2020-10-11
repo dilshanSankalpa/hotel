@@ -7,7 +7,7 @@ $cost = $_POST["cost"];
 $type = $_POST["type"];
 $res = $conn->query("INSERT INTO `facility` (`facilityId`, `location`, `cost`, `rate`, `type`, `name`) VALUES (NULL, '{$location}', '{$cost}', '$rate', '$type', '{$name}')");
 if($res){
-    echo "succesfully inserted";
+    header("Location:facility.php");
 }
 $conn->close();
 ?>
