@@ -6,6 +6,25 @@ $emp = mysqli_fetch_assoc($detEmp);
 $type = $emp["type"];
 $id = $emp["id"];
 
+echo "name : ".$emp["name"]."<br> gender : ";
+if($emp["gender"] == 1){
+    echo "male<br>";
+}
+elseif($emp["gender"] == 2){
+    echo "female<br>";
+}
+echo "Telephone number : ".$emp["tpNo"]."<br> work start date : ".$emp["wsd"]."<br>";
+echo "salary grade : ";
+if($emp["salaryGrade"] == 1){
+    echo "low<br>";
+}
+elseif($emp["salaryGrade"] == 2){
+    echo "middle<br>";
+}
+elseif($emp["salaryGrade"] == 3){
+    echo "high<br>";
+}
+
 if($type == 1){
     $detSub = $conn->query("select * from manager where empId = {$id};");
     $man = mysqli_fetch_assoc($detSub);
