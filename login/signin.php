@@ -6,6 +6,7 @@
     <title>Sign in</title>
 </head>
 <body>
+<h2>sign in</h2><br>
     <form action="checkuser.php" method="post">
         Enter the user name : <br>
         <input type="text" name="name"><br>
