@@ -44,15 +44,18 @@ $bill = 0;
 $foodCost = 0;
 $roomCost = 0;
 $facilityCost = 0;
-$queryRoomCost = $conn->query("select sum(room.cost) AS c from room,roomGuest where room.roomNo = roomGuest.roomNo and roomGuest.guestId = '{$id}';");
+$queryRoomCost = $conn->query("select sum(room.cost) AS cost from room,roomGuest where room.roomNo = roomGuest.roomNo and roomGuest.guestId = '{$id}';");
 if(isset($queryRoomCost)){
     $roomCostF = mysqli_fetch_assoc($queryRoomCost);
-    $roomCost = $roomCostF["c"];
+    $roomCost = $roomCostF["cost"];
 }
-$queryFacilityCost = $conn->query("select sum(facility.cost) AS c from facility,guestFacility where guestFacility.facilityId = facility.facilityId and guestFacility.guestId = {$id};");
+$conn->query("create view fac(cost,duration) as select facility.cost as cost, guestFacility.duration AS duration  from facility,guestFacility where guestFacility.facilityId = facility.facilityId and guestFacility.guestId = {$id};");
+$queryFacilityCost = $conn->query("select * from fac");
 if(isset($queryFacilityCost)){
-    $facilityCostF = mysqli_fetch_assoc($queryFacilityCost);
-    $facilityCost = $facilityCostF["c"];
+    while($facilityCostF = mysqli_fetch_assoc($queryFacilityCost)){
+        $facilityCost += $facilityCostF["cost"]*$facilityCostF["duration"];
+    }
+    
 }
 $conn->query("create view foodC(foC,amo) as select food.cost,foodGuest.portion from food,foodGuest where food.foodId = foodGuest.foodId and foodGuest.guestId = {$id}");
 $queryFood = $conn->query("select * from foodC");
