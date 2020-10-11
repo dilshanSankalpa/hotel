@@ -1,5 +1,6 @@
 <?php
 require_once ('../DB/DB.php');
+require_once('../include/header.php');
 $gid = $_GET["id"];
 
 echo "<h2>Guest details</h2><br>";
@@ -71,4 +72,5 @@ echo "your bill = rs : ".$bill;
 $conn->query("DROP VIEW foodC;");
 $conn->query("DROP VIEW fac;");
 $conn->close();
+require_once('../include/footer.php');
 ?>

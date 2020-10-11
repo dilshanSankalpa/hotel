@@ -1,5 +1,6 @@
 <?php
 require_once ('../DB/DB.php');
+require_once('../include/header.php');
 $gId = $_GET["id"];
 $detEmp = $conn->query("select * from employee where id = {$gId}");
 $emp = mysqli_fetch_assoc($detEmp);
@@ -123,6 +124,6 @@ if(isset($de)){
 }
 }
 $conn->close();
-
+require_once('../include/footer.php');
 ?>
 

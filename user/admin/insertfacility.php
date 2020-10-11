@@ -1,4 +1,4 @@
-
+<?php require_once('../../include/header.php');?>
 <h2>insert facility</h2><br>
 <form action="insertfacilitysub.php" method="post">
 location <br>
@@ -17,3 +17,4 @@ Type <br>
 <br>
 <input type="submit" value="submit">
 </form>
+<?php require_once('../../include/footer.php');?>

@@ -3,6 +3,7 @@
 use function PHPSTORM_META\type;
 
 require_once('../../DB/DB.php');
+require_once('../../include/header.php');
 ?>
 
 <h3>Facility table</h3>
@@ -31,4 +32,5 @@ while($row = mysqli_fetch_assoc($query)){
     <a href="deletefacility.php?id=<?php echo $row['facilityId']; ?>"><button>Delete</button></a>
 <?php
 }
+require_once('../../include/footer.php');
 ?>
