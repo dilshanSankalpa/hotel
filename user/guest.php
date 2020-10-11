@@ -68,5 +68,6 @@ if(isset($queryFood)){
 $bill = $roomCost+$facilityCost+$foodCost;
 echo "your bill = rs : ".$bill;
 $conn->query("DROP VIEW foodC;");
+$conn->query("DROP VIEW fac;");
 $conn->close();
 ?>
