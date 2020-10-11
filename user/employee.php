@@ -4,8 +4,7 @@ $gId = $_GET["id"];
 $detEmp = $conn->query("select * from employee where id = {$gId}");
 $emp = mysqli_fetch_assoc($detEmp);
 $type = $emp["type"];
-$id = $emp["id"];
-
+$id = $emp["empId"];
 echo "<h2>employee details</h2><br>";
 
 echo "name : ".$emp["name"]."<br> gender : ";
@@ -111,19 +110,16 @@ while($row = mysqli_fetch_assoc($de1)){
 }
 elseif($type == 4){
 
-echo "Employee type : receptionist <br>handled guests(Ids) : <br>";
+echo "Employee type : receptionist <br>";
 
 $de = $conn->query("SELECT * FROM `recGuest` WHERE empId = '{$id}';");
-while($row1 = mysqli_fetch_assoc($de)){
-    echo $row1["guestId"]."<br>";
-    
-}
-    
-if($emp["faciltyID"] != NULL){
-    echo "facilities : <br>";
-    $q8 = $conn->query("select * facility where empId = '{$id}';");
-    while($r8 = mysqli_fetch_assoc($q8))
-    echo "recruited facility :"+$r8["name"]+"<br>";
+if(isset($de)){
+    echo "handled guests(Ids) : <br>";
+     while($row1 = mysqli_fetch_assoc($de)){
+     echo $row1["guestId"]."<br>";
+        
+        }
+
 }
 }
 $conn->close();
