@@ -17,7 +17,7 @@ while($row = mysqli_fetch_assoc($query)){
     Rate <br>
     <input type="text" name="rate" value="<?php echo $row['rate']; ?>"> <br>
     name <br>
-    <input type="text" name="name" value="<?php echo $row['name']; ?>">
+    <input type="text" name="name" value="<?php echo $row['name']; ?>"> <br>
     type <br>
     <select name="type">
         <option value="1" <?php if($row['type']==1) echo "selected"; ?>>indoor</option>
