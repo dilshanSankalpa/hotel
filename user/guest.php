@@ -1,12 +1,13 @@
 <?php
 require_once ('../DB/DB.php');
 $gid = $_GET["id"];
-echo "Telephone numbers : "."<br>";
 
+echo "<h2>Guest details</h2><br>";
 $guest = mysqli_fetch_assoc($conn->query("select * from guest where id = {$gid};"));
 echo "Check in date : ".$guest["CID"]." Check out date : ".$guest["COD"]."<br>";
 $id = $guest["guestId"];
 $query = $conn->query("select * from guTell where guestId = {$guest['guestId']};");
+echo "Telephone numbers : "."<br>";
 while($row = mysqli_fetch_assoc($query)){
     echo $row["tel"]."<br>";
 }
@@ -14,7 +15,7 @@ if($guest["type"]==1){
     echo "Guest type = family<br>";
     $sql1 = $conn->query("SELECT * FROM `family` WHERE guestId = '{$id}';");
     $family = mysqli_fetch_assoc($sql1);
-    echo "Head NIC : ".$family["hNIC"]." Head's Name : ".$family["hName"]." gender of family head : ";
+    echo "Head NIC : ".$family["hNIC"]."<br>Head's Name : ".$family["hName"]."<br>gender of family head : ";
     if($family["hGender"] == 1 ){
         echo "Male<br>";
     }
