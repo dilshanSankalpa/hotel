@@ -6,6 +6,8 @@ $emp = mysqli_fetch_assoc($detEmp);
 $type = $emp["type"];
 $id = $emp["id"];
 
+echo "<h2>employee details</h2><br>";
+
 echo "name : ".$emp["name"]."<br> gender : ";
 if($emp["gender"] == 1){
     echo "male<br>";
