@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 09, 2020 at 10:12 AM
+-- Generation Time: Oct 11, 2020 at 11:53 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -66,6 +66,13 @@ CREATE TABLE `company` (
   `address` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`guestId`, `name`, `address`) VALUES
+(11, 'big company', 'big company, colombo');
+
 -- --------------------------------------------------------
 
 --
@@ -81,7 +88,7 @@ CREATE TABLE `employee` (
   `wsd` date NOT NULL,
   `facilityId` int(3) DEFAULT NULL,
   `id` int(3) NOT NULL,
-  `type` int(1) NOT NULL COMMENT 'management = 1 kitchen staff = 2 cleaning staff = 3 receptionist = 4 admin = 5'
+  `type` int(1) NOT NULL COMMENT 'management = 1 kitchen staff = 2 cleaning staff = 3 receptionist = 4 '
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -89,9 +96,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`empId`, `name`, `gender`, `tpNo`, `salaryGrade`, `wsd`, `facilityId`, `id`, `type`) VALUES
-(1, 'aa', 1, '010110010', 1, '2020-10-05', 1, 1, 1),
-(2, 'aa', 1, '010110010', 1, '2020-10-05', 1, 1, 1),
-(3, 'bvcik', 1, '31151', 1, '2020-10-01', 1, 2, 1);
+(5, 'wathsala', 1, '01245664', 1, '2020-10-01', NULL, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -113,7 +118,8 @@ CREATE TABLE `facility` (
 --
 
 INSERT INTO `facility` (`facilityId`, `location`, `cost`, `rate`, `type`, `name`) VALUES
-(1, 'blah', 100, 10, 1, 'bvcik');
+(4, 'first floor', 200, 5, 1, 'facility 1'),
+(5, 'garden', 230, 8, 2, 'facillty 2');
 
 -- --------------------------------------------------------
 
@@ -127,6 +133,13 @@ CREATE TABLE `family` (
   `hGender` int(1) NOT NULL COMMENT '1 = male 2 = female',
   `hNIC` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `family`
+--
+
+INSERT INTO `family` (`guestId`, `hName`, `hGender`, `hNIC`) VALUES
+(9, 'sarath', 1, 171474895);
 
 -- --------------------------------------------------------
 
@@ -152,17 +165,6 @@ INSERT INTO `food` (`foodId`, `rate`, `name`, `type`, `cost`) VALUES
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `foodC`
--- (See below for the actual view)
---
-CREATE TABLE `foodC` (
-`foC` int(4)
-,`amo` int(1)
-);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `foodGuest`
 --
 
@@ -177,7 +179,7 @@ CREATE TABLE `foodGuest` (
 --
 
 INSERT INTO `foodGuest` (`guestId`, `foodId`, `portion`) VALUES
-(2, 1, 1);
+(9, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -189,7 +191,7 @@ CREATE TABLE `guest` (
   `guestId` int(3) NOT NULL,
   `CID` date NOT NULL,
   `COD` date NOT NULL,
-  `type` int(11) NOT NULL COMMENT '1 = family 2 = individual 3 = individual',
+  `type` int(11) NOT NULL COMMENT '1 = family 2 = individual 3 = company',
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -198,14 +200,9 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`guestId`, `CID`, `COD`, `type`, `id`) VALUES
-(1, '2020-10-12', '2020-09-30', 2, 3),
-(2, '2020-10-13', '2020-10-13', 2, 2),
-(3, '2020-10-23', '2020-10-22', 2, 6),
-(4, '2020-11-05', '2020-11-07', 2, 7),
-(5, '2020-11-05', '2020-11-07', 2, 7),
-(6, '2020-11-05', '2020-11-07', 2, 7),
-(7, '2020-11-05', '2020-11-07', 2, 7),
-(8, '2020-11-05', '2020-11-07', 1, 11);
+(9, '2020-10-01', '2020-10-08', 1, 12),
+(10, '2020-10-01', '2020-10-15', 2, 13),
+(11, '2020-10-07', '2020-10-08', 3, 14);
 
 -- --------------------------------------------------------
 
@@ -218,6 +215,13 @@ CREATE TABLE `guestFacility` (
   `facilityId` int(3) NOT NULL,
   `duration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `guestFacility`
+--
+
+INSERT INTO `guestFacility` (`guestId`, `facilityId`, `duration`) VALUES
+(9, 5, 10);
 
 -- --------------------------------------------------------
 
@@ -235,8 +239,10 @@ CREATE TABLE `guTell` (
 --
 
 INSERT INTO `guTell` (`guestId`, `tel`) VALUES
-(2, '0323262'),
-(2, '1645854');
+(9, '0777777777'),
+(9, '088888888'),
+(10, '088814447'),
+(11, '0781345');
 
 -- --------------------------------------------------------
 
@@ -256,8 +262,7 @@ CREATE TABLE `individual` (
 --
 
 INSERT INTO `individual` (`guestId`, `name`, `gender`, `NIC`) VALUES
-(2, 'bvcik', 1, '1230'),
-(7, 'Ddr3 RX20', 2, '1356887');
+(10, 'akila', 1, '01275463');
 
 -- --------------------------------------------------------
 
@@ -296,6 +301,13 @@ CREATE TABLE `manager` (
   `designation` varchar(50) NOT NULL,
   `empId` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `manager`
+--
+
+INSERT INTO `manager` (`grade`, `designation`, `empId`) VALUES
+(1, 'boss', 15);
 
 -- --------------------------------------------------------
 
@@ -347,6 +359,13 @@ CREATE TABLE `room` (
   `location` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `room`
+--
+
+INSERT INTO `room` (`roomNo`, `type`, `rate`, `status`, `cost`, `location`) VALUES
+(1, 1, 5, 1, 300, '1st floor');
+
 -- --------------------------------------------------------
 
 --
@@ -371,6 +390,13 @@ CREATE TABLE `roomGuest` (
   `roomNo` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `roomGuest`
+--
+
+INSERT INTO `roomGuest` (`guestId`, `roomNo`) VALUES
+(9, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -389,12 +415,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `password`, `type`, `name`) VALUES
-(2, '123', 1, 'aa'),
-(3, '123', 1, 'aas'),
-(5, '123', 1, 'qq'),
-(6, '123', 1, 'Dilshan Sakalpa'),
-(7, '123', 1, 'Ddr3 RX20'),
-(11, 'sdad', 1, 'Ddr3 RX20dad');
+(12, '123', 1, 'family'),
+(13, '123', 1, 'individual'),
+(14, '123', 1, 'company'),
+(15, '123', 2, 'manager'),
+(16, '123', 2, 'receptionist');
 
 -- --------------------------------------------------------
 
@@ -406,15 +431,6 @@ CREATE TABLE `waiter` (
   `empId` int(3) NOT NULL,
   `sStyle` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure for view `foodC`
---
-DROP TABLE IF EXISTS `foodC`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `foodC`  AS  select `food`.`cost` AS `foC`,`foodGuest`.`portion` AS `amo` from (`food` join `foodGuest`) where `food`.`foodId` = `foodGuest`.`foodId` and `foodGuest`.`guestId` = 2 ;
 
 --
 -- Indexes for dumped tables
@@ -567,13 +583,13 @@ ALTER TABLE `waiter`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `empId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `empId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `facility`
 --
 ALTER TABLE `facility`
-  MODIFY `facilityId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `facilityId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `food`
@@ -585,19 +601,35 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `guestId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `guestId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `roomNo` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `roomNo` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `outdoorGReq`
+--
+ALTER TABLE `outdoorGReq`
+  ADD CONSTRAINT `outdoorGReq_ibfk_1` FOREIGN KEY (`facilityId`) REFERENCES `facility` (`facilityId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `outdoorSReq`
+--
+ALTER TABLE `outdoorSReq`
+  ADD CONSTRAINT `outdoorSReq_ibfk_1` FOREIGN KEY (`facilityId`) REFERENCES `facility` (`facilityId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
