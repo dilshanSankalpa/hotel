@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage of hotel managent system</title>
-</head>
-<body>
+<?php require_once('include/header.php'); ?>
     <h1>welcome to hotel management system</h1><br>
     <a href="login/signin.php"><div>Click here to sign in </div></a>
    
-</body>
-</html>
+<?php require_once('include/footer.php');
