@@ -43,6 +43,33 @@ if($type == 1){
         echo "senior <br>";
     }
 
+    echo "<h5>employee details</h5>";
+    $em = $conn->query("select * from employee");
+    while($$emp = mysqli_fetch_assoc($em)){
+
+        $type = $emp["type"];
+        $id = $emp["empId"];
+        echo "name : ".$emp["name"]."<br> gender : ";
+        if($emp["gender"] == 1){
+            echo "male<br>";
+        }
+        elseif($emp["gender"] == 2){
+            echo "female<br>";
+        }
+        echo "Telephone number : ".$emp["tpNo"]."<br> work start date : ".$emp["wsd"]."<br>";
+        echo "salary grade : ";
+        if($emp["salaryGrade"] == 1){
+            echo "low<br>";
+        }
+        elseif($emp["salaryGrade"] == 2){
+            echo "middle<br>";
+        }
+        elseif($emp["salaryGrade"] == 3){
+            echo "high<br>";
+        }
+    
+    }
+
 
 
 }
