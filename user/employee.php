@@ -43,9 +43,9 @@ if($type == 1){
         echo "senior <br>";
     }
 
-    echo "<h5>employee details</h5>";
+    echo "<br><h5> all employee details</h5>";
     $em = $conn->query("select * from employee");
-    while($$emp = mysqli_fetch_assoc($em)){
+    while($emp = mysqli_fetch_assoc($em)){
 
         $type = $emp["type"];
         $id = $emp["empId"];
@@ -67,8 +67,10 @@ if($type == 1){
         elseif($emp["salaryGrade"] == 3){
             echo "high<br>";
         }
+
+        echo "<br>";
     
-    }
+    } 
 
 
 
